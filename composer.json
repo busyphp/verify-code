@@ -1,0 +1,57 @@
+{
+	"name"        : "busyphp/verify-code",
+	"type"        : "library",
+	"description" : "验证码验证扩展，用于短信、邮件等验证码验证",
+	"homepage"    : "http://www.harter.cn/?form=BusyPHP&plugin=busyphp/verify-code",
+	"keywords"    : [
+		"短信验证码",
+		"短信发送"
+	],
+	"authors"     : [
+		{
+			"name"  : "busy^life",
+			"email" : "busy.life@qq.com"
+		}
+	],
+	"license"     : "CC-BY-NC-4.0",
+	"require"     : {
+		"php"             : ">=7.2.0",
+		"ext-json"        : "*",
+		"busyphp/busyphp" : "^6.0"
+	},
+	"require-dev" : {
+		"symfony/var-dumper" : "^4.3|^5.1"
+	},
+	"autoload"    : {
+		"psr-4" : {
+			"BusyPHP\\verifycode\\" : "src"
+		}
+	},
+	"config"      : {
+		"preferred-install" : "dist"
+	},
+	"extra"       : {
+		"think"   : {
+			"config" : {
+				"busy-verify-code" : "src/config/config.php"
+			}
+		},
+		"busyphp" : {
+			"manager"  : {
+				"name"    : "验证码模块",
+				"class"   : "BusyPHP\\verifycode\\app\\controller\\ManagerController",
+				"install" : {
+					"install_operate"   : {
+						"request_confirm" : "确认要安装 <code>__package__</code> 吗？<div class=text-gray>注意：安装会覆盖数据库中的 <code>*_plugin_verify_code</code> 表</div>"
+					},
+					"uninstall_operate" : {
+						"request_confirm" : "确认要卸载 <code>__package__</code> 吗？<div class=text-gray>注意：卸载会删除数据库中的 <code>*_plugin_verify_code</code> 表</div>"
+					}
+				}
+			},
+			"services" : [
+				"BusyPHP\\verifycode\\Service"
+			]
+		}
+	}
+}
