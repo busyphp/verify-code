@@ -1,0 +1,39 @@
+<extend name="@admin:layout"/>
+<block name="content">
+    <input type="hidden" name="id" value="{$id}"/>
+
+    <div class="form-group">
+        <label>帐户类型</label>
+        <input type="text" class="form-control" value="{$name} - {$id}" disabled/>
+    </div>
+
+    <div class="form-group">
+        <label>验证码有效期</label>
+        <div class="input-group">
+            <input type="number" class="form-control" name="data[expire]" value="{$info.expire|default=''}" placeholder="请输入验证码有效期时长"/>
+            <div class="input-group-addon">秒</div>
+        </div>
+        <span class="help-block">设置验证码有效期，默认为<code>600</code>秒</span>
+    </div>
+
+    <div class="form-group">
+        <label>重发限制</label>
+        <div class="input-group">
+            <input type="number" class="form-control" name="data[repeat]" value="{$info.repeat|default=''}" placeholder="请输入可重发秒数"/>
+            <div class="input-group-addon">秒</div>
+        </div>
+        <span class="help-block">设置验证码发送完成，多少秒后可重发，默认为<code>60</code>秒</span>
+    </div>
+    <div class="form-group">
+        <label>验证码长度</label>
+        <input type="number" class="form-control" name="data[length]" value="{$info.length|default=''}" placeholder="请输入验证码长度"/>
+        <span class="help-block">设置验证码长度，默认为<code>6位</code></span>
+    </div>
+    <div class="form-group">
+        <label>验证码样式</label>
+        <select class="form-control" name="data[style]">
+            <?=\BusyPHP\helper\TransHelper::toOptionHtml(\BusyPHP\verifycode\model\PluginVerifyCode::getStyleMap(), $info['style'])?>
+        </select>
+        <span class="help-block">设置验证码样式</span>
+    </div>
+</block>

@@ -9,28 +9,29 @@
 composer require busyphp/verify-code
 ```
 
-> 安装完成后可以通过后台管理 > 开发模式 > 插件管理进行 `安装/卸载`
+> 安装完成后可以通过后台管理 > 开发模式 > 插件管理进行 `安装`
 
-## 配置 `config/busy-verify-code.php`
+> 配置 `config/admin.php` -> `model` -> 增加 `plugin_verify_code`
 
 ```php
 <?php
-
-use BusyPHP\verifycode\model\VerifyCode;
-
 return [
-    // 设置验证账号类型
-    'accounts' => [
-        'phone' => [
-            'name'   => '短信验证码', // 名称，用于后台设置中展示
-            'expire' => 600,//  验证码过期秒数
-            'repeat' => 60, //  可重发验证码秒数
-            'length' => 6,  //  验证码长度
-            'shape'  => VerifyCode::SHAPE_NUMBER
+    'model' => [
+        // 增加以下
+        // 消息验证码模型
+        'plugin_verify_code' => [
+            // 定义账号类型
+            'account_types' => [
+                'phone' => [
+                    'name'   => '短信验证码', // 名称，用于后台设置中展示
+                    'expire' => 600,// 验证码过期秒数
+                    'repeat' => 60, // 可重发验证码秒数
+                    'length' => 6,  // 验证码长度
+                    'style'  => \BusyPHP\facade\VerifyCode::STYLE_NUMBER  // 验证码类型
+                ]
+            ]
         ],
-
-        // 更多账号类型
-    ],
+    ]
 ];
 ```
 
